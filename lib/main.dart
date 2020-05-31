@@ -49,13 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
             //padding: EdgeInsets.all(2.0),
             scrollDirection: Axis.vertical,
             crossAxisCount: 3,
-            children: origCharacters
-                .map((e) => Hero(
-                      tag: e['name'],
-                      child: SingleImageLayout(
-                          imageUri: 'assets/images/' + e['imageFile']),
-                    ))
-                .toList()),
+            children: origCharacters.map((e) {
+              final imagePath = 'assets/images/' + e['imageFile'];
+              return Hero(
+                tag: imagePath,
+                child: SingleImageLayout(imageUri: imagePath),
+              );
+            }).toList()),
       ),
     );
   }
@@ -85,6 +85,7 @@ class _SingleImageLayoutState extends State<SingleImageLayout> {
       onTap: () {
         Navigator.of(context).push(
           PageRouteBuilder(
+            transitionDuration: Duration(seconds: 2),
             opaque: false,
             pageBuilder: (context, _, __) {
               return GameStartScreen(
@@ -127,7 +128,7 @@ class GameStartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    characters= List<Map<String, Object>>.from(origCharacters);
+    characters = List<Map<String, Object>>.from(origCharacters);
 
     return Hero(
         tag: imageUri,
